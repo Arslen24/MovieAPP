@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Rent Confirmation{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Rent Confirmation</h2>
+    <div class="card mt-4">
+        <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+        <div class="card-body">
+            <h3 class="card-title">{{ movie.title }}</h3>
+            <p class="card-text">{{ movie.description }}</p>
+            <p><strong>Genre:</strong> {{ movie.genre }}</p>
+            <p><strong>Release Year:</strong> {{ movie.release_year }}</p>
+            <p><strong>Rental Price:</strong> ${{ price }}</p>
+        </div>
+    </div>
+    <form action="{% url 'process_payment' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="movie_id" value="{{ movie.id }}">
+        <input type="hidden" name="price" value="{{ price }}">
+        <button type="submit" class="btn btn-primary mt-3">Pay Now</button>
+    </form>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Cancel</a>
+</div>
+{% endblock %}

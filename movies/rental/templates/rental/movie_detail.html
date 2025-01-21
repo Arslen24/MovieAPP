@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <!-- Movie Poster -->
+        <div class="col-md-4">
+            <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" class="img-fluid rounded shadow-sm" alt="{{ movie.title }}">
+        </div>
+        
+        <!-- Movie Details -->
+        <div class="col-md-8">
+            <h1>{{ movie.title }}</h1>
+            <p><strong>Genre:</strong> {{ movie.genre }}</p>
+            <p><strong>Description:</strong> {{ movie.description }}</p>
+            <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+            <a href="{{ movie.trailer_url }}" class="btn btn-danger mb-3" target="_blank">Watch Trailer</a>
+            <a href="{% url 'rent_movie' movie.id %}" class="btn btn-success mb-3">Rent Now</a>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- User Reviews Section -->
+    <div class="row">
+        <div class="col-12">
+            <h2>User Reviews</h2>
+            <ul class="list-group">
+                {% for review in reviews %}
+                    <li class="list-group-item">
+                        <strong>{{ review.user.username }}:</strong> 
+                        {{ review.content }}
+                        <span class="badge bg-warning text-dark float-end">Rating: {{ review.rating }}</span>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No reviews yet. Be the first to review!</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'add_review' movie.id %}" class="btn btn-primary mt-3">Add Review</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

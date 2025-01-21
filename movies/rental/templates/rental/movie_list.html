@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Movies List</h1>
+<div class="row">
+    {% for movie in movies %}
+        <div class="col-md-4">
+            <div class="card movie-card mb-4">
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.image_url }}" class="card-img-top" alt="{{ movie.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
+                    <a href="{% url 'movie_detail' movie.id %}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

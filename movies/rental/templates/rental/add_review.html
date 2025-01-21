@@ -1,0 +1,7 @@
+<h1>Add Review for {{ movie.title }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="content" placeholder="Write your review here"></textarea><br>
+    <input type="number" name="rating" min="1" max="5" placeholder="Rating (1-5)"><br>
+    <button type="submit">Submit</button>
+</form>

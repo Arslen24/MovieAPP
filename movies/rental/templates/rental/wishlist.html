@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Wishlist</h1>
+    <div class="row">
+        {% for item in wishlist %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ item.movie.image_url }}" class="card-img-top" alt="{{ item.movie.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.movie.title }}</h5>
+                    <a href="#" class="btn btn-success">Rent Now</a>
+                    <a href="{% url 'remove_from_wishlist' item.movie.id %}" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Your wishlist is empty.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
